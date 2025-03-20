@@ -303,12 +303,12 @@ function getNextPosition(face, x, y, direction) {
     newY >= GRID_COUNT;
   
   if (isOutOfBounds) {
-    // Revised face transition logic
+    // Corrected face transition logic
     if (face === 'front') {
       if (newY < 0) { // Top edge
         newFace = 'top';
         newY = GRID_COUNT - 1;
-        newX = x; // Maintain same X position
+        newX = x;
       } else if (newY >= GRID_COUNT) { // Bottom edge
         newFace = 'bottom';
         newY = 0;
@@ -325,11 +325,11 @@ function getNextPosition(face, x, y, direction) {
     } else if (face === 'back') {
       if (newY < 0) { // Top edge
         newFace = 'top';
-        newY = GRID_COUNT - 1;
+        newY = 0;
         newX = GRID_COUNT - 1 - x; // Mirror X
       } else if (newY >= GRID_COUNT) { // Bottom edge
         newFace = 'bottom';
-        newY = 0;
+        newY = GRID_COUNT - 1;
         newX = GRID_COUNT - 1 - x;
       } else if (newX < 0) { // Left edge
         newFace = 'right';
@@ -341,71 +341,71 @@ function getNextPosition(face, x, y, direction) {
         newY = y;
       }
     } else if (face === 'top') {
-      if (newY < 0) { // Front edge
-        newFace = 'front';
-        newY = GRID_COUNT - 1;
-        newX = x;
-      } else if (newY >= GRID_COUNT) { // Back edge
+      if (newY < 0) { // Back edge
         newFace = 'back';
-        newY = GRID_COUNT - 1;
+        newY = 0;
         newX = GRID_COUNT - 1 - x;
+      } else if (newY >= GRID_COUNT) { // Front edge
+        newFace = 'front';
+        newY = 0;
+        newX = x;
       } else if (newX < 0) { // Left edge
         newFace = 'left';
-        newX = y;
-        newY = GRID_COUNT - 1;
+        newX = 0;
+        newY = GRID_COUNT - 1 - y;
       } else if (newX >= GRID_COUNT) { // Right edge
         newFace = 'right';
-        newX = GRID_COUNT - 1 - y;
-        newY = GRID_COUNT - 1;
+        newX = 0;
+        newY = y;
       }
     } else if (face === 'bottom') {
       if (newY < 0) { // Front edge
         newFace = 'front';
-        newY = 0;
+        newY = GRID_COUNT - 1;
         newX = x;
       } else if (newY >= GRID_COUNT) { // Back edge
         newFace = 'back';
-        newY = 0;
+        newY = GRID_COUNT - 1;
         newX = GRID_COUNT - 1 - x;
       } else if (newX < 0) { // Left edge
         newFace = 'left';
-        newX = GRID_COUNT - 1 - y;
-        newY = 0;
+        newX = GRID_COUNT - 1;
+        newY = y;
       } else if (newX >= GRID_COUNT) { // Right edge
         newFace = 'right';
-        newX = y;
-        newY = 0;
+        newX = GRID_COUNT - 1;
+        newY = GRID_COUNT - 1 - y;
       }
     } else if (face === 'left') {
       if (newY < 0) { // Top edge
         newFace = 'top';
         newX = 0;
-        newY = x;
+        newY = GRID_COUNT - 1 - x;
       } else if (newY >= GRID_COUNT) { // Bottom edge
         newFace = 'bottom';
         newX = 0;
-        newY = GRID_COUNT - 1 - x;
+        newY = x;
       } else if (newX < 0) { // Back edge
         newFace = 'back';
         newX = GRID_COUNT - 1;
         newY = y;
       } else if (newX >= GRID_COUNT) { // Front edge
         newFace = 'front';
-        newX = GRID_COUNT - 1;
+        newX = 0;
         newY = y;
       }
     } else if (face === 'right') {
       if (newY < 0) { // Top edge
         newFace = 'top';
         newX = GRID_COUNT - 1;
-        newY = GRID_COUNT - 1 - x;
+        newY = x;
       } else if (newY >= GRID_COUNT) { // Bottom edge
         newFace = 'bottom';
         newX = GRID_COUNT - 1;
-        newY = x;
+        newY = GRID_COUNT - 1 - x;
       } else if (newX < 0) { // Front edge
         newFace = 'front';
-        newX = 0;
+        newX = GRID_COUNT - 1;
         newY = y;
       } else if (newX >= GRID_COUNT) { // Back edge
         newFace = 'back';
