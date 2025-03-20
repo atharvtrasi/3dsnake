@@ -303,114 +303,114 @@ function getNextPosition(face, x, y, direction) {
     newY >= GRID_COUNT;
   
   if (isOutOfBounds) {
-    // Corrected face transition logic
+    // Fixed face transition logic to ensure correct edge transitions
     if (face === 'front') {
-      if (newY < 0) { // Top edge
+      if (newY < 0) { // Top edge to top face
         newFace = 'top';
         newY = GRID_COUNT - 1;
-        newX = x;
-      } else if (newY >= GRID_COUNT) { // Bottom edge
+        // Keep x coordinate the same
+      } else if (newY >= GRID_COUNT) { // Bottom edge to bottom face
         newFace = 'bottom';
         newY = 0;
-        newX = x;
-      } else if (newX < 0) { // Left edge
+        // Keep x coordinate the same
+      } else if (newX < 0) { // Left edge to left face
         newFace = 'left';
         newX = GRID_COUNT - 1;
-        newY = y;
-      } else if (newX >= GRID_COUNT) { // Right edge
+        // Keep y coordinate the same
+      } else if (newX >= GRID_COUNT) { // Right edge to right face
         newFace = 'right';
         newX = 0;
-        newY = y;
+        // Keep y coordinate the same
       }
     } else if (face === 'back') {
-      if (newY < 0) { // Top edge
+      if (newY < 0) { // Top edge to top face
         newFace = 'top';
         newY = 0;
         newX = GRID_COUNT - 1 - x; // Mirror X
-      } else if (newY >= GRID_COUNT) { // Bottom edge
+      } else if (newY >= GRID_COUNT) { // Bottom edge to bottom face
         newFace = 'bottom';
         newY = GRID_COUNT - 1;
-        newX = GRID_COUNT - 1 - x;
-      } else if (newX < 0) { // Left edge
+        newX = GRID_COUNT - 1 - x; // Mirror X
+      } else if (newX < 0) { // Left edge to right face
         newFace = 'right';
         newX = GRID_COUNT - 1;
-        newY = y;
-      } else if (newX >= GRID_COUNT) { // Right edge
+        // Keep y coordinate the same
+      } else if (newX >= GRID_COUNT) { // Right edge to left face
         newFace = 'left';
         newX = 0;
-        newY = y;
+        // Keep y coordinate the same
       }
     } else if (face === 'top') {
-      if (newY < 0) { // Back edge
+      if (newY < 0) { // Back edge to back face
         newFace = 'back';
         newY = 0;
-        newX = GRID_COUNT - 1 - x;
-      } else if (newY >= GRID_COUNT) { // Front edge
+        newX = GRID_COUNT - 1 - x; // Mirror X
+      } else if (newY >= GRID_COUNT) { // Front edge to front face
         newFace = 'front';
         newY = 0;
-        newX = x;
-      } else if (newX < 0) { // Left edge
+        // Keep x coordinate the same
+      } else if (newX < 0) { // Left edge to left face
         newFace = 'left';
-        newX = 0;
-        newY = GRID_COUNT - 1 - y;
-      } else if (newX >= GRID_COUNT) { // Right edge
+        newX = x;
+        newY = 0;
+      } else if (newX >= GRID_COUNT) { // Right edge to right face
         newFace = 'right';
-        newX = 0;
-        newY = y;
+        newX = GRID_COUNT - 1 - x;
+        newY = 0;
       }
     } else if (face === 'bottom') {
-      if (newY < 0) { // Front edge
+      if (newY < 0) { // Front edge to front face
         newFace = 'front';
         newY = GRID_COUNT - 1;
-        newX = x;
-      } else if (newY >= GRID_COUNT) { // Back edge
+        // Keep x coordinate the same
+      } else if (newY >= GRID_COUNT) { // Back edge to back face
         newFace = 'back';
         newY = GRID_COUNT - 1;
-        newX = GRID_COUNT - 1 - x;
-      } else if (newX < 0) { // Left edge
+        newX = GRID_COUNT - 1 - x; // Mirror X
+      } else if (newX < 0) { // Left edge to left face
         newFace = 'left';
-        newX = GRID_COUNT - 1;
-        newY = y;
-      } else if (newX >= GRID_COUNT) { // Right edge
+        newX = GRID_COUNT - 1 - x;
+        newY = GRID_COUNT - 1;
+      } else if (newX >= GRID_COUNT) { // Right edge to right face
         newFace = 'right';
-        newX = GRID_COUNT - 1;
-        newY = GRID_COUNT - 1 - y;
+        newX = x;
+        newY = GRID_COUNT - 1;
       }
     } else if (face === 'left') {
-      if (newY < 0) { // Top edge
+      if (newY < 0) { // Top edge to top face
         newFace = 'top';
-        newX = 0;
-        newY = GRID_COUNT - 1 - x;
-      } else if (newY >= GRID_COUNT) { // Bottom edge
+        newX = y;
+        newY = 0;
+      } else if (newY >= GRID_COUNT) { // Bottom edge to bottom face
         newFace = 'bottom';
-        newX = 0;
-        newY = x;
-      } else if (newX < 0) { // Back edge
+        newX = GRID_COUNT - 1 - y;
+        newY = 0;
+      } else if (newX < 0) { // Back edge to back face
         newFace = 'back';
         newX = GRID_COUNT - 1;
-        newY = y;
-      } else if (newX >= GRID_COUNT) { // Front edge
+        // Keep y coordinate the same
+      } else if (newX >= GRID_COUNT) { // Front edge to front face
         newFace = 'front';
         newX = 0;
-        newY = y;
+        // Keep y coordinate the same
       }
     } else if (face === 'right') {
-      if (newY < 0) { // Top edge
+      if (newY < 0) { // Top edge to top face
         newFace = 'top';
-        newX = GRID_COUNT - 1;
-        newY = x;
-      } else if (newY >= GRID_COUNT) { // Bottom edge
+        newX = GRID_COUNT - 1 - y;
+        newY = GRID_COUNT - 1;
+      } else if (newY >= GRID_COUNT) { // Bottom edge to bottom face
         newFace = 'bottom';
-        newX = GRID_COUNT - 1;
-        newY = GRID_COUNT - 1 - x;
-      } else if (newX < 0) { // Front edge
+        newX = y;
+        newY = GRID_COUNT - 1;
+      } else if (newX < 0) { // Front edge to front face
         newFace = 'front';
         newX = GRID_COUNT - 1;
-        newY = y;
-      } else if (newX >= GRID_COUNT) { // Back edge
+        // Keep y coordinate the same
+      } else if (newX >= GRID_COUNT) { // Back edge to back face
         newFace = 'back';
         newX = 0;
-        newY = y;
+        // Keep y coordinate the same
       }
     }
   }
