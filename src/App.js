@@ -7,7 +7,7 @@ import { useInterval } from './hooks/useInterval';
 import { generateRainbowColors } from './utils';
 
 const GRID_SIZE = 20;
-const GAME_SPEED = 150;
+const GAME_SPEED = 1000;
 const BOARD_SIZE = 10; // Cube size
 const GRID_COUNT = 10; // Number of grid cells on each face
 const INITIAL_SNAKE = [
@@ -195,8 +195,8 @@ function FollowCamera() {
   return (
     <PerspectiveCamera 
       makeDefault
-      position={[0, 0, 20]} 
-      fov={50}
+      position={[15, 15, 15]} 
+      fov={60}
     />
   );
 }
@@ -265,8 +265,8 @@ function GameBoard({ snake, foods, isInvincible, rainbowColors, score, highScore
       <FollowCamera />
       <GameUI score={score} highScore={highScore} gameOver={gameOver} restartGame={restartGame} />
       
-      {/* Enable OrbitControls since we disabled automatic camera movement */}
-      <OrbitControls enablePan={false} />
+      {/* Enhanced OrbitControls with zoom and pan */}
+      <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} />
     </>
   );
 }
@@ -542,50 +542,50 @@ function App() {
     };
     
     switch (e.key) {
-      // Arrow keys
+      // Arrow keys - Reversed to fix direction issues
       case 'ArrowUp':
-        if (!isOppositeDirection(DIRECTIONS.UP, currentDirection)) {
-          newDirection = DIRECTIONS.UP;
-        }
-        break;
-      case 'ArrowDown':
         if (!isOppositeDirection(DIRECTIONS.DOWN, currentDirection)) {
           newDirection = DIRECTIONS.DOWN;
         }
         break;
-      case 'ArrowLeft':
-        if (!isOppositeDirection(DIRECTIONS.LEFT, currentDirection)) {
-          newDirection = DIRECTIONS.LEFT;
+      case 'ArrowDown':
+        if (!isOppositeDirection(DIRECTIONS.UP, currentDirection)) {
+          newDirection = DIRECTIONS.UP;
         }
         break;
-      case 'ArrowRight':
+      case 'ArrowLeft':
         if (!isOppositeDirection(DIRECTIONS.RIGHT, currentDirection)) {
           newDirection = DIRECTIONS.RIGHT;
         }
         break;
-      // WASD keys
+      case 'ArrowRight':
+        if (!isOppositeDirection(DIRECTIONS.LEFT, currentDirection)) {
+          newDirection = DIRECTIONS.LEFT;
+        }
+        break;
+      // WASD keys - Also reversed for consistency with arrow keys
       case 'w':
       case 'W':
-        if (!isOppositeDirection(DIRECTIONS.UP, currentDirection)) {
-          newDirection = DIRECTIONS.UP;
+        if (!isOppositeDirection(DIRECTIONS.DOWN, currentDirection)) {
+          newDirection = DIRECTIONS.DOWN;
         }
         break;
       case 's':
       case 'S':
-        if (!isOppositeDirection(DIRECTIONS.DOWN, currentDirection)) {
-          newDirection = DIRECTIONS.DOWN;
+        if (!isOppositeDirection(DIRECTIONS.UP, currentDirection)) {
+          newDirection = DIRECTIONS.UP;
         }
         break;
       case 'a':
       case 'A':
-        if (!isOppositeDirection(DIRECTIONS.LEFT, currentDirection)) {
-          newDirection = DIRECTIONS.LEFT;
+        if (!isOppositeDirection(DIRECTIONS.RIGHT, currentDirection)) {
+          newDirection = DIRECTIONS.RIGHT;
         }
         break;
       case 'd':
       case 'D':
-        if (!isOppositeDirection(DIRECTIONS.RIGHT, currentDirection)) {
-          newDirection = DIRECTIONS.RIGHT;
+        if (!isOppositeDirection(DIRECTIONS.LEFT, currentDirection)) {
+          newDirection = DIRECTIONS.LEFT;
         }
         break;
       default:
